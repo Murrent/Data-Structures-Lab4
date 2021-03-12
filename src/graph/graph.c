@@ -3,13 +3,24 @@
 //
 
 #include "graph.h"
+#include <stdlib.h>
 
 Graph *createGraph(int n) {
-
+    if (n == 0) return NULL;
+    Graph *graph = (Graph*)malloc(sizeof(Graph));
+    graph->size = n;
+    graph->vert = (int**)malloc(n * sizeof(int*));
+    graph->edge = (int**)malloc(n * sizeof(int*));
+    for (int i = 0; i < n; ++i) {
+        graph->vert[n] = (int*)malloc(n * sizeof(int));
+        graph->edge[n] = (int*)malloc(n * sizeof(int));
+    }
+    return graph;
 }
 
 int getNumVertices(Graph *graph) {
-
+    if (!graph) return 0;
+    return graph->size;
 }
 
 int getNumEdges(Graph *graph) {
