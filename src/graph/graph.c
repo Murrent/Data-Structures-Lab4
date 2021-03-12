@@ -66,7 +66,7 @@ List *getNeighbors(Graph *graph, int v) {
 }
 
 /**
- * 
+ *
  * @param graph
  * @param v
  * @return
