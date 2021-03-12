@@ -6,7 +6,9 @@ set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(src ${dir}/src)
 
 add_subdirectory(${src}/graph)
+add_subdirectory(${src}/list)
 
 add_executable(Lab4_Graphs ${src}/main.c)
 
 target_link_libraries(Lab4_Graphs graph)
+target_link_libraries(Lab4_Graphs graph list)
