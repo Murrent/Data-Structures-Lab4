@@ -12,8 +12,13 @@ Graph *createGraph(int n) {
     graph->vert = (int**)malloc(n * sizeof(int*));
     graph->edge = (int**)malloc(n * sizeof(int*));
     for (int i = 0; i < n; ++i) {
-        graph->vert[n] = (int*)malloc(n * sizeof(int));
-        graph->edge[n] = (int*)malloc(n * sizeof(int));
+        graph->vert[i] = (int*)malloc(n * sizeof(int));
+        graph->edge[i] = (int*)malloc(n * sizeof(int));
+
+        for (int j = 0; j < n; ++j) {
+            graph->vert[i][j] = 0;
+            graph->edge[i][j] = 0;
+        }
     }
     return graph;
 }
