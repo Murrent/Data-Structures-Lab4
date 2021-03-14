@@ -8,8 +8,7 @@
 #include "../list/list.h"
 
 typedef struct graph_ {
-    int** vert;
-    int** edge;
+    int **edge;
     int size;
 } Graph;
 
@@ -29,6 +28,6 @@ void addDirectedEdge(Graph *graph, int v1, int v2);
 
 void addUndirectedEdge(Graph *graph, int v1, int v2);
 
-void hasEdge(Graph *graph, int v1, int v2);
+int hasEdge(Graph *graph, int v1, int v2);
 
 #endif //LAB4_GRAPHS_GRAPH_H
