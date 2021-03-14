@@ -5,22 +5,24 @@
 #include "graph.h"
 #include <stdlib.h>
 
-/**
- *
- * @param size
- * @param index
- * @return
- */
 int isInRange(int size, int index) {
     if (index < size && index >= 0) return 1;
     return 0;
 }
 
-/**
- *
- * @param n
- * @return
- */
+PathTable *createPathTable(int n) {
+    if (n == 0) return NULL;
+    PathTable *pathTable = (PathTable *) malloc(sizeof(PathTable));
+    pathTable->shortest = (int *) malloc(n * sizeof(int));
+    pathTable->previous = (int *) malloc(n * sizeof(int));
+    for (int i = 0; i < n; ++i) {
+        pathTable->shortest[i] = 0;
+        pathTable->previous[i] = 0;
+    }
+    pathTable->size = n;
+    return pathTable;
+}
+
 Graph *createGraph(int n) {
     if (n == 0) return NULL;
     Graph *graph = (Graph *) malloc(sizeof(Graph));
@@ -29,27 +31,18 @@ Graph *createGraph(int n) {
     for (int i = 0; i < n; ++i) {
         graph->edge[i] = (int *) malloc(n * sizeof(int));
 
-        for (int j = 0; j < n; ++j)
+        for (int j = 0; j < n; ++j) {
             graph->edge[i][j] = 0;
+        }
     }
     return graph;
 }
 
-/**
- *
- * @param graph
- * @return
- */
 int getNumVertices(Graph *graph) {
     if (!graph) return 0;
     return graph->size;
 }
 
-/**
- *
- * @param graph
- * @return
- */
 int getNumEdges(Graph *graph) {
     if (!graph) return 0;
     int size = 0;
@@ -62,12 +55,6 @@ int getNumEdges(Graph *graph) {
     return size;
 }
 
-/**
- *
- * @param graph
- * @param v
- * @return
- */
 List *getNeighbors(Graph *graph, int v) {
     v--;
     if (graph == NULL && !isInRange(graph->size, v)) return NULL;
@@ -85,12 +72,6 @@ List *getNeighbors(Graph *graph, int v) {
     return list;
 }
 
-/**
- *
- * @param graph
- * @param v
- * @return
- */
 List *getInNeighbors(Graph *graph, int v) {
     v--;
     if (graph == NULL && !isInRange(graph->size, v)) return NULL;
@@ -104,12 +85,6 @@ List *getInNeighbors(Graph *graph, int v) {
     return list;
 }
 
-/**
- *
- * @param graph
- * @param v
- * @return
- */
 List *getOutNeighbors(Graph *graph, int v) {
     v--;
     if (graph == NULL && !isInRange(graph->size, v)) return NULL;
@@ -123,12 +98,6 @@ List *getOutNeighbors(Graph *graph, int v) {
     return list;
 }
 
-/**
- *
- * @param graph
- * @param v1
- * @param v2
- */
 void addDirectedEdge(Graph *graph, int v1, int v2) {
     if (!graph) return;
     v1--;
@@ -137,24 +106,23 @@ void addDirectedEdge(Graph *graph, int v1, int v2) {
     graph->edge[v1][v2] = 1;
 }
 
-/**
- *
- * @param graph
- * @param v1
- * @param v2
- */
 void addUndirectedEdge(Graph *graph, int v1, int v2) {
     addDirectedEdge(graph, v1, v2);
     addDirectedEdge(graph, v2, v1);
 }
 
-/**
- *
- * @param graph
- * @param v1
- * @param v2
- */
-int hasEdge(Graph *graph, int v1, int v2) {
+int hasEdgeDirected(Graph *graph, int from, int to) {
+    from--;
+    to--;
+    if (graph != NULL &&
+        isInRange(graph->size, from) &&
+        isInRange(graph->size, to) &&
+        graph->edge[from][to] != 0)
+        return 1;
+    return 0;
+}
+
+int hasEdgeUndirected(Graph *graph, int v1, int v2) {
     v1--;
     v2--;
     if (graph != NULL &&
@@ -165,3 +133,33 @@ int hasEdge(Graph *graph, int v1, int v2) {
         return 1;
     return 0;
 }
+
+void setWeight(Graph *graph, int from, int to, int weight) {
+    if (!hasEdgeDirected(graph, from, to)) return;
+    graph->edge[from][to] = weight;
+}
+
+void relax(Graph* graph, PathTable* pathTable, int u, int v) {
+    if (pathTable->shortest[v] > pathTable->shortest[u] + graph->edge[u][v]) {
+        pathTable->shortest[v] = pathTable->shortest[u] + graph->edge[u][v];
+        pathTable->previous[v] = u;
+    }
+}
+
+void initializeSingleSource(PathTable* pathTable, int s) {
+    for (int i = 0; i < pathTable->size; ++i) {
+        pathTable->shortest[i] = INT_MAX;
+        pathTable->previous[i] = -1;
+    }
+    pathTable->shortest[s] = 0;
+}
+
+int shortestPath(Graph* graph, int from, int to) {
+    if (graph == NULL) return 0;
+    PathTable *pathTable = createPathTable(graph->size);
+    List *shortest = createList();
+    //List *queue =
+}
+
+
+

@@ -8,9 +8,9 @@ int main() {
     addDirectedEdge(graph, 2, 4);
     addDirectedEdge(graph, 4, 3);
     addDirectedEdge(graph, 3, 8);
-    printf("%d\n", hasEdge(graph, 2, 5));
-    printf("%d\n", hasEdge(graph, 5, 2));
-    printf("%d\n", hasEdge(graph, 5, 1));
+    printf("%d\n", hasEdgeUndirected(graph, 2, 5));
+    printf("%d\n", hasEdgeDirected(graph, 5, 2));
+    printf("%d\n", hasEdgeDirected(graph, 5, 1));
     printf("%d\n", getNumVertices(graph));
     printf("%d\n", getNumEdges(graph));
     List *list = getNeighbors(graph, 2);

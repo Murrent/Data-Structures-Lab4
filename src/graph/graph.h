@@ -7,10 +7,18 @@
 
 #include "../list/list.h"
 
-typedef struct graph_ {
+typedef struct graph_t {
     int **edge;
     int size;
 } Graph;
+
+typedef struct pathTable_t {
+    int *shortest;
+    int *previous;
+    int size;
+} PathTable;
+
+PathTable *createPathTable(int n);
 
 Graph *createGraph(int n);
 
@@ -28,6 +36,16 @@ void addDirectedEdge(Graph *graph, int v1, int v2);
 
 void addUndirectedEdge(Graph *graph, int v1, int v2);
 
-int hasEdge(Graph *graph, int v1, int v2);
+int hasEdgeDirected(Graph *graph, int from, int to);
+
+int hasEdgeUndirected(Graph *graph, int v1, int v2);
+
+void setWeight(Graph *graph, int v1, int v2, int weight);
+
+void relax(Graph* graph, PathTable* pathTable, int u, int v);
+
+void initializeSingleSource(PathTable* pathTable, int s);
+
+int shortestPath(Graph* graph, int from, int to);
 
 #endif //LAB4_GRAPHS_GRAPH_H
