@@ -57,7 +57,7 @@ int getNumEdges(Graph *graph) {
 
 List *getNeighbors(Graph *graph, int v) {
     v--;
-    if (graph == NULL && !isInRange(graph->size, v)) return NULL;
+    if (graph == NULL || !isInRange(graph->size, v)) return NULL;
     List *list = createList();
     for (int i = 0; i < graph->size; ++i) {
         if (graph->edge[v][i] != 0) {
@@ -74,7 +74,7 @@ List *getNeighbors(Graph *graph, int v) {
 
 List *getInNeighbors(Graph *graph, int v) {
     v--;
-    if (graph == NULL && !isInRange(graph->size, v)) return NULL;
+    if (graph == NULL || !isInRange(graph->size, v)) return NULL;
     List *list = createList();
     for (int i = 0; i < graph->size; ++i) {
         if (graph->edge[i][v] != 0) {
@@ -87,7 +87,7 @@ List *getInNeighbors(Graph *graph, int v) {
 
 List *getOutNeighbors(Graph *graph, int v) {
     v--;
-    if (graph == NULL && !isInRange(graph->size, v)) return NULL;
+    if (graph == NULL || !isInRange(graph->size, v)) return NULL;
     List *list = createList();
     for (int i = 0; i < graph->size; ++i) {
         if (graph->edge[v][i] != 0) {
@@ -139,27 +139,42 @@ void setWeight(Graph *graph, int from, int to, int weight) {
     graph->edge[from][to] = weight;
 }
 
-void relax(Graph* graph, PathTable* pathTable, int u, int v) {
+void relax(Graph *graph, PathTable *pathTable, int u, int v) {
+    if (graph == NULL || pathTable == NULL) return;
     if (pathTable->shortest[v] > pathTable->shortest[u] + graph->edge[u][v]) {
         pathTable->shortest[v] = pathTable->shortest[u] + graph->edge[u][v];
-        pathTable->previous[v] = u;
+        pathTable->previous[v] = u + 1;
     }
 }
 
-void initializeSingleSource(PathTable* pathTable, int s) {
+void initializeSingleSource(PathTable *pathTable, int s) {
+    if (pathTable == NULL) return;
     for (int i = 0; i < pathTable->size; ++i) {
-        pathTable->shortest[i] = INT_MAX;
+        pathTable->shortest[i] = 99999;
         pathTable->previous[i] = -1;
     }
-    pathTable->shortest[s] = 0;
+    pathTable->shortest[s - 1] = 0;
 }
 
-int shortestPath(Graph* graph, int from, int to) {
-    if (graph == NULL) return 0;
-    PathTable *pathTable = createPathTable(graph->size);
-    List *shortest = createList();
-    //List *queue =
+int shortestPath(Graph *graph, PathTable *pathTable, int s) {
+    if (graph == NULL || pathTable == NULL) return 0;
+    initializeSingleSource(pathTable, s);
+    int length = getNumVertices(graph);
+    for (int i = 1; i < length - 1; ++i) {
+        for (int x = 0; x < length; ++x) {
+            for (int y = 0; y < length; ++y) {
+                if (graph->edge[x][y] != 0)
+                    relax(graph, pathTable, x, y);
+            }
+        }
+    }
+    for (int x = 0; x < length; ++x) {
+        for (int y = 0; y < length; ++y) {
+            if (graph->edge[x][y] != 0) {
+                if (pathTable->shortest[y] > pathTable->shortest[x] + graph->edge[x][y])
+                    return 0;
+            }
+        }
+    }
+    return 1;
 }
-
-
-

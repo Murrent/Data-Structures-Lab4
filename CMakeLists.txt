@@ -9,6 +9,7 @@ add_subdirectory(${src}/graph)
 add_subdirectory(${src}/list)
 
 add_executable(Lab4_Graphs ${src}/main.c)
+add_executable(pathTest ${src}/pathfinding.c)
 
-target_link_libraries(Lab4_Graphs graph)
 target_link_libraries(Lab4_Graphs graph list)
+target_link_libraries(pathTest graph list)
