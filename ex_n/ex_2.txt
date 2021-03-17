@@ -1,0 +1,28 @@
+graph.h and graph.c
+    Implements all functions for calculating the shortest path from a source using Bellman-Ford method.
+    Graph data structure and it's functions. This implementation assumes that the first vertex is 1.
+    Data structure for storing path information (PathTable).
+
+The Bellman-Ford implementation is tested using a graph with 3 vertices.
+To see that the right graph is constructed. Neighbors of each vertex is printed.
+Then a PathTable is constructed and put into the Bellman-Ford algorithm with a source vertex of 2.
+If there are any negative weight cycles the algorithm returns 0. Else it returns 1.
+The values in the PathTable is then printed and shows the data.
+The matrix representation of the edges are also printed.
+
+The algorithm will only return the right values as long as there are no negative weight cycles.
+
+To build the executable using CMakeLists.txt:
+    cmake_minimum_required(VERSION 3.17)
+    project(Lab4_Graphs C)
+
+    set(CMAKE_C_STANDARD 99)
+    set(dir ${CMAKE_CURRENT_SOURCE_DIR})
+    set(src ${dir}/src)
+
+    add_subdirectory(${src}/graph)
+    add_subdirectory(${src}/list)
+
+    add_executable(shortestTest ${src}/shortestPath.c)
+
+    target_link_libraries(shortestTest graph list)
