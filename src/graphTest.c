@@ -9,8 +9,8 @@ int main() {
     addDirectedEdge(graph, 4, 2);
     addDirectedEdge(graph, 3, 5);
 
-    printf("hasEdgeUndirected 1 - 5: %d\n", hasEdgeUndirected(graph, 1, 5));
-    printf("hasEdgeUndirected 2 - 5: %d\n", hasEdgeUndirected(graph, 2, 5));
+    printf("hasEdgeUndirected 1 - 5: %d\n", hasEdgeUndirected(graph, 1, 3));
+    printf("hasEdgeUndirected 2 - 5: %d\n", hasEdgeUndirected(graph, 2, 3));
     printf("hasEdgeDirected 2 - 5: %d\n", hasEdgeDirected(graph, 2, 5));
     printf("hasEdgeDirected 5 - 1: %d\n", hasEdgeDirected(graph, 5, 1));
     printf("hasEdgeDirected 1 - 5: %d\n", hasEdgeDirected(graph, 1, 5));

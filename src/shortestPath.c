@@ -11,8 +11,29 @@ int main() {
     setWeight(graph, 3, 1, 1);
     setWeight(graph, 2, 3, 1);
 
-    PathTable *pathTable = createPathTable(graph->size);
+    List *neighbors = getNeighbors(graph, 2);
+    printf("neighbors 2:\n");
+    if (neighbors) {
+        for (Node *tmp = neighbors->head; tmp; tmp = tmp->next) {
+            printf("%d\n", tmp->key);
+        }
+    }
+    List *neighborsIn = getInNeighbors(graph, 3);
+    printf("neighborsIn 3:\n");
+    if (neighborsIn) {
+        for (Node *tmp = neighborsIn->head; tmp; tmp = tmp->next) {
+            printf("%d\n", tmp->key);
+        }
+    }
+    List *neighborsOut = getOutNeighbors(graph, 1);
+    printf("neighborsOut 1:\n");
+    if (neighborsOut) {
+        for (Node *tmp = neighborsOut->head; tmp; tmp = tmp->next) {
+            printf("%d\n", tmp->key);
+        }
+    }
 
+    PathTable *pathTable = createPathTable(graph->size);
 
     printf("bellman %d\n", shortestPath(graph, pathTable, 2));
 
