@@ -10,8 +10,6 @@ add_subdirectory(${src}/list)
 
 add_executable(graphTest ${src}/graphTest.c)
 add_executable(shortestTest ${src}/shortestPath.c)
-add_executable(mazeTest ${src}/pathfinding.c)
 
 target_link_libraries(graphTest graph list)
 target_link_libraries(shortestTest graph list)
-target_link_libraries(mazeTest graph list)
