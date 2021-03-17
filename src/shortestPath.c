@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "graph/graph.h"
 
+/**
+ * Demonstrating Bellman-Ford algorithm using matrix method
+ * @return
+ */
 int main() {
     Graph *graph = createGraph(3);
     addUndirectedEdge(graph, 1, 2);

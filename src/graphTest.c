@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "graph/graph.h"
 
+/**
+ * Testing the implemented graph functions.
+ * @return
+ */
 int main() {
     Graph *graph = createGraph(5);
     addDirectedEdge(graph, 1, 5);
