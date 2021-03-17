@@ -1,3 +1,5 @@
+// Martin Vickgren, Samson Tesfalem
+
 #include <stdio.h>
 #include "graph/graph.h"
 

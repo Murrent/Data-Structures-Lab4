@@ -1,6 +1,4 @@
-//
-// Created by Martin on 2021-03-07.
-//
+// Martin Vickgren, Samson Tesfalem
 
 #include "graph.h"
 #include <stdlib.h>
