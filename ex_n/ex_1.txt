@@ -1,0 +1,69 @@
+src/graph/graph.c
+src/graph/graph.h
+src/list/list.c
+src/list/list.h
+src/graphTest.c
+
+src/graph implements the graph functions as well as the graph.
+
+In graphTest.c we create a graph with 5 vertices.
+
+We test two different functions with the graph with the name addUndirectedEdge and addDirectedEdge. 
+Those functions connect the vertices with the edge. 
+But there are two different edges. 
+One that only one side connected and the other connects both ways.
+
+So we connect 1->3, 2->3 with undirected(one side) 2->5, 5->1, 1->5 with directed(both side).
+
+We use other functions.
+
+getNumVertices returns the total number of vertices in the graph. The total of vertices is 5 in the test.
+getNumEdges returns the total number of edges in the graph. The total of edges is 7 in the test.
+
+getNeighbors returns a list of all vertices associated with v with an edge. The neighbors of test graph 1 - 5, 1 - 3, 1 - 3.
+
+getInNeighbors returns a list to all vertices with an edge pointing to v. The neighborsin of test graph 1 - 5, 1 - 3, 1 - 3.
+
+getOutNeighbors returns a list to all vertices with an edge pointing from v. The neighborsout of test graph 1 - 5, 1 - 3.
+
+At the end we print out the edge matrix:
+
+
+00101
+00000
+10011
+01100
+00000
+
+
+To compile the program we used CMakeLists.txt:
+
+To make the file executable:
+This cmakelists reside in the src folder.
+
+cmake_minimum_required(VERSION 3.17)
+project(Lab4_Graphs C)
+
+set(CMAKE_C_STANDARD 99)
+set(dir ${CMAKE_CURRENT_SOURCE_DIR})
+set(src ${dir}/src)
+
+add_subdirectory(${src}/graph)
+add_subdirectory(${src}/list)
+
+add_executable(graphTest ${src}/graphTest.c)
+add_executable(shortestTest ${src}/shortestPath.c)
+add_executable(mazeTest ${src}/pathfinding.c)
+
+target_link_libraries(graphTest graph list)
+target_link_libraries(shortestTest graph list)
+target_link_libraries(mazeTest graph list)
+
+To add library:
+This cmakelists reside in the src/graph folder.
+
+add_library(graph graph.h graph.c)
+
+This cmakelists reside in the src/list folder.
+
+add_library(list list.h list.c)
