@@ -5,11 +5,22 @@
 #include "graph.h"
 #include <stdlib.h>
 
+/**
+ * Check if int index is in range of: 0 <= index < size.
+ * @param size
+ * @param index
+ * @return 1 if true, 0 if false
+ */
 int isInRange(int size, int index) {
     if (index < size && index >= 0) return 1;
     return 0;
 }
 
+/**
+ * Creates a PathTable and returns a pointer to it.
+ * @param n
+ * @return pointer to the PathTable
+ */
 PathTable *createPathTable(int n) {
     if (n == 0) return NULL;
     PathTable *pathTable = (PathTable *) malloc(sizeof(PathTable));
@@ -23,6 +34,12 @@ PathTable *createPathTable(int n) {
     return pathTable;
 }
 
+/**
+ * Creates a graph and returns a pointer to it.
+ * All values in the array are set to 0.
+ * @param n
+ * @return pointer to the graph
+ */
 Graph *createGraph(int n) {
     if (n == 0) return NULL;
     Graph *graph = (Graph *) malloc(sizeof(Graph));
@@ -37,17 +54,19 @@ Graph *createGraph(int n) {
     }
     return graph;
 }
+
 /**
- * 
+ * The amount of vertices.
  * @param graph
- * @return
+ * @return int of vertices amount
  */
 int getNumVertices(Graph *graph) {
     if (!graph) return 0;
     return graph->size;
 }
+
 /**
- * The amount of edges
+ * The amount of edges.
  * @param graph
  * @return int of edges amount
  */
@@ -62,6 +81,7 @@ int getNumEdges(Graph *graph) {
     }
     return size;
 }
+
 /**
  * Returns a list of all vertices associated with v with an edge.
  * @param graph
@@ -84,6 +104,7 @@ List *getNeighbors(Graph *graph, int v) {
     }
     return list;
 }
+
 /**
  * Returns a list to all vertices with an edge pointing to v.
  * @param graph
@@ -102,6 +123,7 @@ List *getInNeighbors(Graph *graph, int v) {
     }
     return list;
 }
+
 /**
  * Returns a list to all vertices with an edge pointing from v.
  * @param graph
@@ -120,6 +142,7 @@ List *getOutNeighbors(Graph *graph, int v) {
     }
     return list;
 }
+
 /**
  * Adds an edge from v1 to v2 and sets it's weight to 1.
  * @param graph
@@ -133,6 +156,7 @@ void addDirectedEdge(Graph *graph, int v1, int v2) {
     if (!isInRange(graph->size, v1) || !isInRange(graph->size, v2)) return;
     graph->edge[v1][v2] = 1;
 }
+
 /**
  * Adds 2 directed edges:
  * v1 -> v2.
@@ -145,6 +169,7 @@ void addUndirectedEdge(Graph *graph, int v1, int v2) {
     addDirectedEdge(graph, v1, v2);
     addDirectedEdge(graph, v2, v1);
 }
+
 /**
  *
  * @param graph
@@ -162,6 +187,7 @@ int hasEdgeDirected(Graph *graph, int from, int to) {
         return 1;
     return 0;
 }
+
 /**
  *
  * @param graph
@@ -180,6 +206,7 @@ int hasEdgeUndirected(Graph *graph, int v1, int v2) {
         return 1;
     return 0;
 }
+
 /**
  * Sets a "weight" at the edge between "from" and "to".
  * @param graph
@@ -189,9 +216,11 @@ int hasEdgeUndirected(Graph *graph, int v1, int v2) {
  */
 void setWeight(Graph *graph, int from, int to, int weight) {
     if (!hasEdgeDirected(graph, from, to)) return;
-    from--; to--;
+    from--;
+    to--;
     graph->edge[from][to] = weight;
 }
+
 /**
  * Relax algorithm to set value at v in the PathTable.
  * @param graph
@@ -206,6 +235,7 @@ void relax(Graph *graph, PathTable *pathTable, int u, int v) {
         pathTable->previous[v] = u + 1;
     }
 }
+
 /**
  * Sets all default values of PathTable.
  * Shortest = infinity for all vertices != s - 1.
@@ -221,6 +251,7 @@ void initializeSingleSource(PathTable *pathTable, int s) {
     }
     pathTable->shortest[s - 1] = 0;
 }
+
 /**
  * Calculates the shortest path from s to every other node using Bellman-Ford algorithm.
  * @param graph
