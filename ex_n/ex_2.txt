@@ -2,6 +2,9 @@ graph.h and graph.c
     Implements all functions for calculating the shortest path from a source using Bellman-Ford method.
     Graph data structure and it's functions. This implementation assumes that the first vertex is 1.
     Data structure for storing path information (PathTable).
+list.h and list.h
+    This is the previously implemented list library.
+    This library is used with graph.
 
 The Bellman-Ford implementation is tested using a graph with 3 vertices.
 To see that the right graph is constructed. Neighbors of each vertex is printed.
@@ -26,3 +29,12 @@ To build the executable using CMakeLists.txt:
     add_executable(shortestTest ${src}/shortestPath.c)
 
     target_link_libraries(shortestTest graph list)
+
+To add libraries:
+This cmakelists reside in the src/graph folder.
+
+    add_library(graph graph.h graph.c)
+
+This cmakelists reside in the src/list folder.
+
+    add_library(list list.h list.c)
