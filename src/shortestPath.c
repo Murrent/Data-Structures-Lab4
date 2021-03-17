@@ -10,7 +10,7 @@ int main() {
     addUndirectedEdge(graph, 1, 2);
     addDirectedEdge(graph, 2, 3);
     addDirectedEdge(graph, 3, 1);
-    setWeight(graph, 2, 1, 3);
+    setWeight(graph, 2, 1, -3);
     setWeight(graph, 1, 2, 2);
     setWeight(graph, 3, 1, 1);
     setWeight(graph, 2, 3, 1);

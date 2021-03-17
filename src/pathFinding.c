@@ -1,14 +1,23 @@
 #include <stdio.h>
 #include "graph/graph.h"
 
+void attachAround(Graph* graph, int v) {
+    v--;
+    if (!graph) return;
+    if (isInRange(v+1, graph->size))
+        addUndirectedEdge(graph, v, v+1);
+    if (isInRange(v+10, graph->size))
+        addUndirectedEdge(graph, v, v+10);
+    printf("%d\n", v);
+}
+
 int main() {
-    Graph *graph = createGraph(5);
-    addDirectedEdge(graph, 1, 5);
-    addDirectedEdge(graph, 1, 3);
-    addUndirectedEdge(graph, 3, 4);
-    addDirectedEdge(graph, 4, 2);
-    addDirectedEdge(graph, 3, 5);
-    setWeight(graph, 1, 3, 3);
+    Graph *graph = createGraph(100);
+
+    for (int i = 0; i < graph->size; ++i) {
+        attachAround(graph, i);
+    }
+
 
     PathTable *pathTable = createPathTable(graph->size);
 

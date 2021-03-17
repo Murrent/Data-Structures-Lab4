@@ -18,6 +18,8 @@ typedef struct pathTable_t {
     int size;
 } PathTable;
 
+int isInRange(int size, int index);
+
 PathTable *createPathTable(int n);
 
 Graph *createGraph(int n);
