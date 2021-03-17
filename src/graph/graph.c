@@ -136,6 +136,7 @@ int hasEdgeUndirected(Graph *graph, int v1, int v2) {
 
 void setWeight(Graph *graph, int from, int to, int weight) {
     if (!hasEdgeDirected(graph, from, to)) return;
+    from--; to--;
     graph->edge[from][to] = weight;
 }
 
